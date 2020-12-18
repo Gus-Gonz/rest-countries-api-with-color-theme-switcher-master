@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap">
+    <script src="js/app.js" defer></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+    <section>
+
+        <header>
+
+            <h2><a href="index.html">Where in the world?</a></h2>
+
+        </header>
+
+        <main>
+
+            <section>
+
+                <input type="text" id="search"  name="search" placeholder="Search for a country">
+
+                <select name="user_filter" id="filter">
+                    <option value="ALL">Filter by region</option>
+                    <option value="AF">Africa</option>
+                    <option value="AM">Americas</option>
+                    <option value="AS">Asia</option>
+                    <option value="EU">Europe</option>
+                    <option value="OC">Oceania</option>
+                </select>
+
+            </section>
+
+            <template id='single-card'>
+                <div class="card">
+                    <img src="" alt="">
+                      <h4 id="country-name"></h4>
+                      <ul>
+                        <li id="population"></li>
+                        <li id="region"></li>
+                        <li id="capital"></li>
+                      </ul>
+                  </div>
+            </template>
+
+            <section id="country-tab-section">
+
+            </section>
+
+            <section id="details-of-country" class="hidden">
+            </section>
+
+
+        </main>
+
+    </section>
+
+
+
+
+
+    <!-- <div>
+
+        <header>
+            <h2><a href="index.html">Where in the world?</a></h2>
+            <div>
+                <span><i class="far fa-moon"></i></span><p>Dark mode</p>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <input type="text" id="search"  name="search" placeholder="Search for a country">
+                <select name="user_filter" id="filter">
+                    <option value="ALL">Filter by region</option>
+                    <option value="AF">Africa</option>
+                    <option value="AM">Americas</option>
+                    <option value="AS">Asia</option>
+                    <option value="EU">Europe</option>
+                    <option value="OC">Oceania</option>
+                </select>
+            </section>
+
+            <section>
+            </section>
+
+            <section>
+                <div>
+                    <button><i class="fas fa-arrow-left"></i>Back</button>
+                </div>
+                <div>
+                    <div class="more-details">
+                    </div>
+                    <div class="border">
+                    </div>
+                </div>
+                <div class="more-details">
+                </div>
+                <div >
+                </div> 
+            </section>
+        </main>
+    </div>end of wrapper -->
+</body>
+</html>
