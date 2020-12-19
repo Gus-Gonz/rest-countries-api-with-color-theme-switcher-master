@@ -64,27 +64,28 @@ const createTabFromTemplate = (country) => {
 
   cardSectionElement.appendChild(template);
 
-  // cardSectionElement.lastElementChild.addEventListener('click', () => {
-  //   console.log('clicked!!');
-  //   showDetailsOfCountrySectionHandler(country);
-  // });
+  cardSectionElement.lastElementChild.addEventListener('click', () => {
+    showDetailsOfCountrySectionHandler(country);
+  });
 };
 
 const showDetailsOfCountrySectionHandler = (country) => {
-  const divWrapperElement = document.createElement('div');
+  if (detailsOfCountrySectionElement.children.length > 0) {
+    return;
+  } else {
+    const divWrapperElement = document.createElement('div');
 
-  //Some elements inside of county are array so map is needed
+    //Some elements inside of county are array so map is needed
 
-  const turnArrayIntoStr = (array) => {
-    console.log(array);
-    return array.map((eachElement) => {
-      return eachElement.name;
-    });
-  };
+    const turnArrayIntoStr = (array) => {
+      return array.map((eachElement) => {
+        return eachElement.name;
+      });
+    };
 
-  //Creating the all element with innerHTML
+    //Creating the all element with innerHTML
 
-  divWrapperElement.innerHTML = `
+    divWrapperElement.innerHTML = `
     <div>
       <button><i class="fas fa-arrow-left"></i>Back</button>
     </div>
@@ -101,7 +102,7 @@ const showDetailsOfCountrySectionHandler = (country) => {
             <li>Capital: ${country.capital}</li>
           </ul>
           <ul>
-            <li>Top Level Domain: ${country.topLevelDomain.join(' , ')}</li>
+            <li>Top Level Domain: ${country.topLevelDomain.join(', ')}</li>
             <li>Currency: ${turnArrayIntoStr(country.currencies).join(
               ', '
             )}</li>
@@ -111,13 +112,39 @@ const showDetailsOfCountrySectionHandler = (country) => {
           </ul>
         </div>
         <div class="border">
+            <ul class="border-wrapper">
+            </ul>
         </div>
       </div>
     </div>
     `;
-  // REMEBER TO ADD THE BORDER BUTTONS AS WELL
+    // REMEBER TO ADD THE BORDER BUTTONS AS WELL
 
-  detailsOfCountrySectionElement.appendChild(divWrapperElement);
+    country.borders.forEach((eachBorder) => {
+      let liElement = document.createElement('li');
+      let countryBorderInfo = borderFilter(eachBorder);
+
+      liElement.textContent = ` ${countryBorderInfo.name} `;
+
+      liElement.addEventListener('click', () => {
+        console.log('clicked the border link ' + countryBorderInfo.name);
+      });
+
+      divWrapperElement
+        .getElementsByClassName('border-wrapper')[0]
+        .appendChild(liElement);
+    });
+
+    detailsOfCountrySectionElement.appendChild(divWrapperElement);
+  }
+};
+
+const borderFilter = (alpha3Code) => {
+  for (let i = 0; i < fullListOfCountries.length; i++) {
+    if (fullListOfCountries[i].alpha3Code === alpha3Code) {
+      return fullListOfCountries[i];
+    }
+  }
 };
 
 const resetFilter = () => {
@@ -159,7 +186,6 @@ const filterByContinentHandler = (value = false) => {
 };
 
 filterByUserInputElement.addEventListener('keyup', (event) => {
-  console.log(event.target.value.toLowerCase());
   filterByUserInputHandler(event.target.value.toLowerCase());
 });
 
@@ -195,12 +221,10 @@ sendHttpRequest('GET', 'https://restcountries.eu/rest/v2/all')
     (error) => console.log(error)
   )
   .then((countries) => {
-    // createTabFromTemplate(countries[21]);
+    createTabFromTemplate(countries[21]);
     // 21 is belgan
-    countries.forEach((country) => {
-      createTabFromTemplate(country);
-    }),
-      (error) => console.log(error);
+    // countries.forEach((country) => {
+    //   createTabFromTemplate(country);
+    // }),
+    //   (error) => console.log(error);
   });
-
-// crear una fiuncion filter para ser usada con los imput y con los botones de paises fronterizos
