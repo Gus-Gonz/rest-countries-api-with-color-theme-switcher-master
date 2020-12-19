@@ -44,12 +44,12 @@ const createTabFromTemplate = (country) => {
 
   const imgTab = template.querySelector('img');
   imgTab.src = country.flag;
-  imgTab.alt = `Flag of ${country.name}`;
+  imgTab.alt = `Flag of ${country.name.split('(')[0]}`;
 
   //changing h4 tab
 
   const h4Tab = template.querySelector('h4');
-  h4Tab.textContent = ` ${country.name}`;
+  h4Tab.textContent = ` ${country.name.split('(')[0]}`;
 
   //changing details
 
@@ -69,10 +69,13 @@ const createTabFromTemplate = (country) => {
   });
 };
 
-const showDetailsOfCountrySectionHandler = (country) => {
-  if (detailsOfCountrySectionElement.children.length > 0) {
+const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
+  if (detailsOfCountrySectionElement.children.length > 0 && !needsToUpdate) {
     return;
   } else {
+    detailsOfCountrySectionElement.removeChild(
+      detailsOfCountrySectionElement.lastChild
+    );
     const divWrapperElement = document.createElement('div');
 
     //Some elements inside of county are array so map is needed
@@ -90,9 +93,9 @@ const showDetailsOfCountrySectionHandler = (country) => {
       <button><i class="fas fa-arrow-left"></i>Back</button>
     </div>
     <div>
-      <img src="${country.flag}" alt="Flag of ${country.name}">
+      <img src="${country.flag}" alt="Flag of ${country.name.split('(')[0]}">
       <div class="more-details-wrapper">
-        <h4>${country.name}</h4>
+        <h4>${country.name.split('(')[0]}</h4>
         <div class="more-details">
           <ul>
             <li>Native Name: ${country.nativeName}</li>
@@ -118,16 +121,18 @@ const showDetailsOfCountrySectionHandler = (country) => {
       </div>
     </div>
     `;
-    // REMEBER TO ADD THE BORDER BUTTONS AS WELL
+
+    // BORDER COUNTRY BUTTONS
 
     country.borders.forEach((eachBorder) => {
       let liElement = document.createElement('li');
       let countryBorderInfo = borderFilter(eachBorder);
 
-      liElement.textContent = ` ${countryBorderInfo.name} `;
+      liElement.textContent = ` ${countryBorderInfo.name.split('(')[0]} `;
 
       liElement.addEventListener('click', () => {
-        console.log('clicked the border link ' + countryBorderInfo.name);
+        showDetailsOfCountrySectionHandler(countryBorderInfo,true);
+        console.log('clicked the border link ' + countryBorderInfo.name.split('(')[0]);
       });
 
       divWrapperElement
@@ -139,9 +144,9 @@ const showDetailsOfCountrySectionHandler = (country) => {
   }
 };
 
-const borderFilter = (alpha3Code) => {
+const borderFilter = (alpha3CodeValue) => {
   for (let i = 0; i < fullListOfCountries.length; i++) {
-    if (fullListOfCountries[i].alpha3Code === alpha3Code) {
+    if (fullListOfCountries[i].alpha3Code === alpha3CodeValue) {
       return fullListOfCountries[i];
     }
   }
@@ -221,10 +226,10 @@ sendHttpRequest('GET', 'https://restcountries.eu/rest/v2/all')
     (error) => console.log(error)
   )
   .then((countries) => {
-    createTabFromTemplate(countries[21]);
+    // createTabFromTemplate(countries[21]);
     // 21 is belgan
-    // countries.forEach((country) => {
-    //   createTabFromTemplate(country);
-    // }),
-    //   (error) => console.log(error);
+    countries.forEach((country) => {
+      createTabFromTemplate(country);
+    }),
+      (error) => console.log(error);
   });
