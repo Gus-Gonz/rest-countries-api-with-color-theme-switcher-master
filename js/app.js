@@ -4,6 +4,7 @@ const detailsOfCountrySectionElement = document.getElementById(
   'details-of-country'
 );
 
+const filterByUserInputElement = document.getElementById('search');
 const filterByContinentElement = document.getElementById('filter');
 
 let fullListOfCountries;
@@ -37,7 +38,6 @@ const sendHttpRequest = (method, url, data) => {
 };
 
 const createTabFromTemplate = (country) => {
-  console.log(country);
   const template = document.importNode(cardTemplateElement.content, true);
 
   //changing img tab
@@ -126,6 +126,20 @@ const resetFilter = () => {
   }
 };
 
+const inputFilter = (inputValue) => {
+  for (let i = 0; i < fullListOfCountries.length; i++) {
+    if (
+      fullListOfCountries[i].name
+        .toLowerCase()
+        .includes(inputValue.toLowerCase())
+    ) {
+      cardSectionElement.children[i].style.display = '';
+    } else {
+      cardSectionElement.children[i].style.display = 'none';
+    }
+  }
+};
+
 const regionFilter = (regionValue) => {
   for (let i = 0; i < fullListOfCountries.length; i++) {
     if (fullListOfCountries[i].region === regionValue) {
@@ -136,32 +150,38 @@ const regionFilter = (regionValue) => {
   }
 };
 
-const filterByContinentHanlder = (value = false) => {
+const filterByUserInputHandler = (value) => {
+  return value !== '' ? inputFilter(value) : resetFilter();
+};
+
+const filterByContinentHandler = (value = false) => {
   return value ? regionFilter(value) : resetFilter();
 };
 
-filterByContinentElement.addEventListener('change', (event) => {
-  console.log('inside the event change' )
-  console.log(event.target.value)
+filterByUserInputElement.addEventListener('keyup', (event) => {
+  console.log(event.target.value.toLowerCase());
+  filterByUserInputHandler(event.target.value.toLowerCase());
+});
 
+filterByContinentElement.addEventListener('change', (event) => {
   switch (event.target.value) {
     case 'ALL':
-      filterByContinentHanlder();
+      filterByContinentHandler();
       break;
     case 'AF':
-      filterByContinentHanlder('Africa');
+      filterByContinentHandler('Africa');
       break;
     case 'AM':
-      filterByContinentHanlder('Americas');
+      filterByContinentHandler('Americas');
       break;
     case 'AS':
-      filterByContinentHanlder('Asia');
+      filterByContinentHandler('Asia');
       break;
     case 'EU':
-      filterByContinentHanlder('Europe');
+      filterByContinentHandler('Europe');
       break;
     case 'OC':
-      filterByContinentHanlder('Oceania');
+      filterByContinentHandler('Oceania');
       break;
   }
 });
