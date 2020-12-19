@@ -4,9 +4,9 @@ const detailsOfCountrySectionElement = document.getElementById(
   'details-of-country'
 );
 
-console.log(detailsOfCountrySectionElement);
+const filterByContinentElement = document.getElementById('filter');
 
-let fullList;
+let fullListOfCountries;
 
 const sendHttpRequest = (method, url, data) => {
   const promise = new Promise((resolve, reject) => {
@@ -60,20 +60,23 @@ const createTabFromTemplate = (country) => {
   ulTab.querySelector('#region').textContent = `Region: ${country.region}`;
   ulTab.querySelector('#capital').textContent = `Capital: ${country.capital}`;
 
+  //pushing the template updated into the DOM
+
   cardSectionElement.appendChild(template);
-  cardSectionElement.lastElementChild.addEventListener('click', () => {
-    console.log('clicked!!');
-    showDetailsOfCountrySection(country);
-  });
+
+  // cardSectionElement.lastElementChild.addEventListener('click', () => {
+  //   console.log('clicked!!');
+  //   showDetailsOfCountrySectionHandler(country);
+  // });
 };
 
-const showDetailsOfCountrySection = (country) => {
+const showDetailsOfCountrySectionHandler = (country) => {
   const divWrapperElement = document.createElement('div');
 
   //Some elements inside of county are array so map is needed
 
   const turnArrayIntoStr = (array) => {
-    console.log(array)
+    console.log(array);
     return array.map((eachElement) => {
       return eachElement.name;
     });
@@ -99,8 +102,12 @@ const showDetailsOfCountrySection = (country) => {
           </ul>
           <ul>
             <li>Top Level Domain: ${country.topLevelDomain.join(' , ')}</li>
-            <li>Currency: ${turnArrayIntoStr(country.currencies).join(', ')}</li>
-            <li>Languages: ${turnArrayIntoStr(country.languages).join(', ')}</li>
+            <li>Currency: ${turnArrayIntoStr(country.currencies).join(
+              ', '
+            )}</li>
+            <li>Languages: ${turnArrayIntoStr(country.languages).join(
+              ', '
+            )}</li>
           </ul>
         </div>
         <div class="border">
@@ -108,27 +115,72 @@ const showDetailsOfCountrySection = (country) => {
       </div>
     </div>
     `;
-  // console.log(divWrapperElement);
+  // REMEBER TO ADD THE BORDER BUTTONS AS WELL
 
-  console.log(turnArrayIntoStr(country.topLevelDomain))
   detailsOfCountrySectionElement.appendChild(divWrapperElement);
 };
+
+const resetFilter = () => {
+  for (let i = 0; i < fullListOfCountries.length; i++) {
+    cardSectionElement.children[i].style.display = '';
+  }
+};
+
+const regionFilter = (regionValue) => {
+  for (let i = 0; i < fullListOfCountries.length; i++) {
+    if (fullListOfCountries[i].region === regionValue) {
+      cardSectionElement.children[i].style.display = '';
+    } else {
+      cardSectionElement.children[i].style.display = 'none';
+    }
+  }
+};
+
+const filterByContinentHanlder = (value = false) => {
+  return value ? regionFilter(value) : resetFilter();
+};
+
+filterByContinentElement.addEventListener('change', (event) => {
+  console.log('inside the event change' )
+  console.log(event.target.value)
+
+  switch (event.target.value) {
+    case 'ALL':
+      filterByContinentHanlder();
+      break;
+    case 'AF':
+      filterByContinentHanlder('Africa');
+      break;
+    case 'AM':
+      filterByContinentHanlder('Americas');
+      break;
+    case 'AS':
+      filterByContinentHanlder('Asia');
+      break;
+    case 'EU':
+      filterByContinentHanlder('Europe');
+      break;
+    case 'OC':
+      filterByContinentHanlder('Oceania');
+      break;
+  }
+});
 
 sendHttpRequest('GET', 'https://restcountries.eu/rest/v2/all')
   .then(
     (countries) => {
-      fullList = countries;
-      return fullList;
+      fullListOfCountries = countries;
+      return fullListOfCountries;
     },
     (error) => console.log(error)
   )
   .then((countries) => {
-    createTabFromTemplate(countries[21]);
-    // countries.forEach((country) => {
-    //   createTabFromTemplate(country);
-    // }),
-    //   (error) => console.log(error);
+    // createTabFromTemplate(countries[21]);
+    // 21 is belgan
+    countries.forEach((country) => {
+      createTabFromTemplate(country);
+    }),
+      (error) => console.log(error);
   });
 
-
-  // crear una fiuncion filter para ser usada con los imput y con los botones de paises fronterizos 
+// crear una fiuncion filter para ser usada con los imput y con los botones de paises fronterizos
