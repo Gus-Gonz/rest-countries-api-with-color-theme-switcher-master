@@ -1,3 +1,138 @@
-.hidden{
-    display: none;
+body {
+  background-color: hsl(0, 0%, 89%);
+  color: hsl(200, 15%, 8%);
+  padding: 0;
+  margin: 0;
 }
+
+/* HEADER */
+
+header {
+  background-color: white;
+  /* background-color: rgb(241, 43, 43); */
+
+  position: fixed;
+  width: 100%;
+  height: 70px;
+
+  box-shadow: 0px 4px hsl(0, 0%, 52%, 40%);
+  padding: 0 3rem;
+}
+
+header h2 a{
+    text-decoration: none;
+    color: hsl(200, 15%, 8%);
+
+}
+
+main {
+  padding: 0 3rem;
+  padding-top: 120px;
+}
+
+.hidden {
+    display: none;
+  }
+
+/* USER IMPUT SECTION */
+
+.user-input-section{
+    margin: auto;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.user-input-wrapper {
+    display: flex;
+
+    height: 40px;
+    width: 20rem;
+    background-color: white;
+    box-shadow: 0px 0px 9px 4px  rgba(182, 182, 182, 0.4);
+
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.user-input-wrapper input{
+    border: none;
+    padding-left: 15px;
+    width: 15rem;
+}
+
+.user-input-section select{
+    border: none;
+    padding-left: 15px;
+    width: 15rem;
+
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 9px 4px  rgba(182, 182, 182, 0.4);
+    margin: 0 0 0 auto;
+
+    cursor: pointer;
+}
+
+
+/* SECTION COUNTRY TABS */
+
+.tabs-wrapper{
+    text-align: center;
+}
+
+
+/*COUNTRY CARD */
+
+.card {
+    display: inline-block;
+    height: 300px;
+    background: white;
+    margin: 10px 13px;
+
+    box-shadow: 0px 0px 9px 4px  rgba(182, 182, 182, 0.4);
+    border-radius: 5px;
+
+}
+
+
+.card img{
+    height: 175px;
+    width: 280px;
+    object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* INFO OF EACH COUNTRY TAB */
+
+.info-wrapper{
+    text-align: justify;
+    padding: 0 10px 0 30px;
+}
+
+.info-wrapper h4 {
+    margin-top: 5px;
+}
+
+.info-wrapper ul {
+    list-style: none;
+    padding: 0;   
+}
+
+.info-wrapper label {
+    color: rgb(83, 83, 83);
+}
+
+/* 
+- Very Dark Blue (Light Mode Text): hsl(200, 15%, 8%)
+- Dark Gray (Light Mode Input): hsl(0, 0%, 52%)
+- Very Light Gray (Light Mode Background): hsl(0, 0%, 98%)
+- Dark Blue (Dark Mode Elements): hsl(209, 23%, 22%)
+- Very Dark Blue (Dark Mode Background): hsl(207, 26%, 17%)
+
+
+- White (Dark Mode Text & Light Mode Elements): hsl(0, 0%, 100%)
+*/
+
+

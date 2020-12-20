@@ -11,100 +11,49 @@
 </head>
 <body>
 
-    <section>
+    <header>
 
-        <header>
+        <h2><a href="index.html">Where in the world?</a></h2>
 
-            <h2><a href="index.html">Where in the world?</a></h2>
+    </header>
 
-        </header>
+    <main>
 
-        <main>
-
-            <section id="user-input">
-
-                <input type="text" id="search"  name="search" placeholder="Search for a country">
-
-                <select name="user_filter" id="filter">
-                    <option value="ALL">Filter by region</option>
-                    <option value="AF">Africa</option>
-                    <option value="AM">Americas</option>
-                    <option value="AS">Asia</option>
-                    <option value="EU">Europe</option>
-                    <option value="OC">Oceania</option>
-                </select>
-
-            </section>
-
-            <template id='single-card'>
-                <div class="card">
-                    <img src="" alt="">
-                      <h4 id="country-name"></h4>
-                      <ul>
-                        <li id="population"></li>
-                        <li id="region"></li>
-                        <li id="capital"></li>
-                      </ul>
-                  </div>
-            </template>
-
-            <section id="country-tab-section">
-
-            </section>
-
-            <section id="details-of-country" class="hidden">
-            </section>
-
-
-        </main>
-
-    </section>
-
-
-
-
-
-    <!-- <div>
-
-        <header>
-            <h2><a href="index.html">Where in the world?</a></h2>
-            <div>
-                <span><i class="far fa-moon"></i></span><p>Dark mode</p>
+        <section id="user-input" class="user-input-section">
+            <div class="user-input-wrapper">
+            <i>Image</i>
+            <input type="text" id="search"  name="search" placeholder="Search for a country..">
             </div>
-        </header>
+            <select name="user_filter" id="filter">
+                <option value="ALL">Filter by Region</option>
+                <option value="AF">Africa</option>
+                <option value="AM">Americas</option>
+                <option value="AS">Asia</option>
+                <option value="EU">Europe</option>
+                <option value="OC">Oceania</option>
+            </select>
+        </section>
 
-        <main>
-            <section>
-                <input type="text" id="search"  name="search" placeholder="Search for a country">
-                <select name="user_filter" id="filter">
-                    <option value="ALL">Filter by region</option>
-                    <option value="AF">Africa</option>
-                    <option value="AM">Americas</option>
-                    <option value="AS">Asia</option>
-                    <option value="EU">Europe</option>
-                    <option value="OC">Oceania</option>
-                </select>
-            </section>
+        <template id='single-card'>
+            <span class="card">
+                <img src="" alt="">
+                <div class="info-wrapper">
+                    <h4 id="country-name"></h4>
+                    <ul>
+                    <li >Population: <label id="population"></label></li>
+                    <li >Region: <label id="region"></label></li>
+                    <li >Capital: <label id="capital"></label></li>
+                    </ul>
+                </div>
+            </span>
+        </template>
 
-            <section>
-            </section>
+        <section id="country-tab-section" class="tabs-wrapper">
+        </section>
 
-            <section>
-                <div>
-                    <button><i class="fas fa-arrow-left"></i>Back</button>
-                </div>
-                <div>
-                    <div class="more-details">
-                    </div>
-                    <div class="border">
-                    </div>
-                </div>
-                <div class="more-details">
-                </div>
-                <div >
-                </div> 
-            </section>
-        </main>
-    </div>end of wrapper -->
+        <section id="details-of-country" class="hidden">
+        </section>
+
+    </main>
 </body>
 </html>

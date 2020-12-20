@@ -56,9 +56,9 @@ const createTabFromTemplate = (country) => {
   const ulTab = template.querySelector('ul');
   ulTab.querySelector(
     '#population'
-  ).textContent = `Population: ${country.population}`;
-  ulTab.querySelector('#region').textContent = `Region: ${country.region}`;
-  ulTab.querySelector('#capital').textContent = `Capital: ${country.capital}`;
+  ).textContent = ` ${country.population}`;
+  ulTab.querySelector('#region').textContent = ` ${country.region}`;
+  ulTab.querySelector('#capital').textContent = ` ${country.capital}`;
 
   //pushing the template updated into the DOM
 
@@ -73,6 +73,7 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
   if (detailsOfCountrySectionElement.children.length > 0 && !needsToUpdate) {
     return;
   } else {
+
     detailsOfCountrySectionElement.removeChild(
       detailsOfCountrySectionElement.lastChild
     );
@@ -89,8 +90,7 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     //Creating the all element with innerHTML
 
     divWrapperElement.innerHTML = `
-    <div>
-      <button><i class="fas fa-arrow-left"></i>Back</button>
+    <div class="back-button-wrapper">
     </div>
     <div>
       <img src="${country.flag}" alt="Flag of ${country.name.split('(')[0]}">
@@ -121,6 +121,21 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
       </div>
     </div>
     `;
+    //BACK BUTTON 
+
+    let buttonElement = document.createElement('button');
+
+    buttonElement.innerHTML = `<i class="fas fa-arrow-left"></i>Back`
+
+
+    // we still need the logic on the event 
+    buttonElement.addEventListener('click',()=> {
+      console.log('backButton Clicked!!');
+    })
+
+    divWrapperElement.getElementsByClassName('back-button-wrapper')[0].appendChild(buttonElement)
+
+
 
     // BORDER COUNTRY BUTTONS
 
@@ -139,6 +154,8 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
         .getElementsByClassName('border-wrapper')[0]
         .appendChild(liElement);
     });
+
+
 
     detailsOfCountrySectionElement.appendChild(divWrapperElement);
   }
