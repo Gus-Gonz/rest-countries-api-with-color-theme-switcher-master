@@ -17,6 +17,16 @@ header {
 
   box-shadow: 0px 4px hsl(0, 0%, 52%, 40%);
   padding: 0 3rem;
+
+  display: grid;
+  grid-template-columns: 50% 44%;
+}
+
+.dark-button p{
+  float: right;
+  margin: 0;
+  padding-top: 1.5rem;
+
 }
 
 header h2 a {
@@ -28,7 +38,6 @@ main {
   padding: 0 3rem;
   padding-top: 120px;
 }
-
 
 /* USER IMPUT SECTION */
 
@@ -49,6 +58,10 @@ main {
 
   padding: 5px;
   border-radius: 5px;
+}
+.user-input-wrapper svg {
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
 .user-input-wrapper input {
@@ -125,7 +138,6 @@ main {
 }
 
 .details-of-country-wrapper img {
-
   object-fit: cover;
   width: 100%;
   max-height: 350px;
@@ -151,29 +163,26 @@ main {
 
 /* MORE DETAILS  */
 
-.more-details-wrapper{
+.more-details-wrapper {
   padding-left: 1rem;
 }
 
-.more-details{
+.more-details {
   display: grid;
   grid-template-columns: 50% 50%;
-
 }
 
 .more-details label {
   color: rgb(83, 83, 83);
 }
 
-
-.more-details ul{
+.more-details ul {
   list-style: none;
   padding: 0;
-
 }
 
 /* BORDER COUNTRIES */
-.border-wrapper{
+.border-wrapper {
   padding: 0;
 }
 
@@ -193,14 +202,79 @@ main {
   display: none;
 }
 
+@media screen and (max-width: 780px) {
 
-@media screen and (max-width:700px) {
+  main{
+    padding: 0 1.5rem;
+    padding-top: 120px;
+
+  }
+
+  header {
+    padding: 1.3rem 1.5rem 0 1.5rem;
+    grid-template-columns: 50% 42%;
+  }
+
+  h2{
+    font-size: 16px;
+  }
+
+  .dark-button{
+    float: right;
+  }
+
+  .dark-button p{
+    
+    padding-top: 1rem;
+  }
+
+  /* USER IMPUT SECTION */
+  .user-input-section{
+    grid-template-columns: none;
+    grid-template-rows: 50px 50px;
+    grid-gap: 10px;
+    padding: 0;
+  }
+
+  .user-input-section select{
+    margin: 0;
+  }
+
+  /* DETAILS TAB */
+
+  .details-of-country-wrapper{
+    grid-template-columns:none;
+  }
+
+  .details-of-country-wrapper img{
+    height: 250px;
+  }
+
+  .more-details-wrapper{
+    padding: 0;
+  }
+
+  .more-details-wrapper h3 {
+    float: none;
+    margin: 1rem 0;
+  }
+
+  .more-details{
+    grid-template-columns:none;
+  }
+
+  .more-details li {
+    padding: 4px 0;
+  }
+
+  .border-wrapper button {
+    min-width: 80px;
+    margin: 7px 5px;
+  }
+
+
 
 }
-
-
-
-
 
 /* 
 - Very Dark Blue (Light Mode Text): hsl(200, 15%, 8%)
