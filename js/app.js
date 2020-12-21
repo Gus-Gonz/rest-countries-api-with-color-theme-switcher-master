@@ -69,11 +69,11 @@ const createTabFromTemplate = (country) => {
   });
 };
 
-const toggleBackElementOnBackGroudDisplay = () => {
+const toggleElementOnBackGroud = () => {
   cardSectionElement.classList.toggle('hidden');
   userInputSectionELement.classList.toggle('hidden');
   detailsOfCountrySectionElement.classList.toggle('hidden');
-  detailsOfCountrySectionElement.innerHTML=' '
+  detailsOfCountrySectionElement.innerHTML = ' ';
 };
 
 const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
@@ -81,7 +81,7 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     return;
   } else {
     if (!needsToUpdate) {
-      toggleBackElementOnBackGroudDisplay();
+      toggleElementOnBackGroud();
     }
     detailsOfCountrySectionElement.removeChild(
       detailsOfCountrySectionElement.lastChild
@@ -105,27 +105,30 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     <div class="details-of-country-wrapper">
       <img src="${country.flag}" alt="Flag of ${country.name.split('(')[0]}">
       <div class="more-details-wrapper">
-        <h4>${country.name.split('(')[0]}</h4>
+        <h2>${country.name.split('(')[0]}</h2>
         <div class="more-details">
           <ul>
-            <li>Native Name: ${country.nativeName}</li>
-            <li>Population: ${country.population}</li>
-            <li>Region: ${country.region}</li>
-            <li>Sub Region: ${country.subregion}</li>
-            <li>Capital: ${country.capital}</li>
+            <li>Native Name: <label>${country.nativeName}</label></li>
+            <li>Population: <label>${country.population}</label></li>
+            <li>Region: <label>${country.region}</label></li>
+            <li>Sub Region: <label>${country.subregion}</label></li>
+            <li>Capital: <label>${country.capital}</label></li>
           </ul>
           <ul>
-            <li>Top Level Domain: ${country.topLevelDomain.join(', ')}</li>
-            <li>Currency: ${turnArrayIntoStr(country.currencies).join(
+            <li>Top Level Domain: <label>${country.topLevelDomain.join(
               ', '
-            )}</li>
-            <li>Languages: ${turnArrayIntoStr(country.languages).join(
+            )}</label></li>
+            <li>Currency: <label>${turnArrayIntoStr(country.currencies).join(
               ', '
-            )}</li>
+            )}</label></li>
+            <li>Languages: <label>${turnArrayIntoStr(country.languages).join(
+              ', '
+            )}</label></li>
           </ul>
         </div>
         <div class="border">
             <ul class="border-wrapper">
+              <h3>Border Countries: </h3>
             </ul>
         </div>
       </div>
@@ -141,7 +144,7 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     // we still need the logic on the event
     buttonElement.addEventListener('click', () => {
       console.log('backButton Clicked!!');
-      toggleBackElementOnBackGroudDisplay();
+      toggleElementOnBackGroud();
     });
 
     divWrapperElement
@@ -151,12 +154,14 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     // BORDER COUNTRY BUTTONS
 
     country.borders.forEach((eachBorder) => {
-      let liElement = document.createElement('li');
+      let buttonElement = document.createElement('button');
       let countryBorderInfo = borderFilter(eachBorder);
 
-      liElement.textContent = ` ${countryBorderInfo.name.split('(')[0]} `;
+      buttonElement.className = 'button';
 
-      liElement.addEventListener('click', () => {
+      buttonElement.textContent = ` ${countryBorderInfo.name.split('(')[0]} `;
+
+      buttonElement.addEventListener('click', () => {
         showDetailsOfCountrySectionHandler(countryBorderInfo, true);
         console.log(
           'clicked the border link ' + countryBorderInfo.name.split('(')[0]
@@ -165,7 +170,7 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
 
       divWrapperElement
         .getElementsByClassName('border-wrapper')[0]
-        .appendChild(liElement);
+        .appendChild(buttonElement);
     });
 
     detailsOfCountrySectionElement.appendChild(divWrapperElement);

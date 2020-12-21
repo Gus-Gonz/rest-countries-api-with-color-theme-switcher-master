@@ -29,9 +29,6 @@ main {
   padding-top: 120px;
 }
 
-.hidden {
-  display: none;
-}
 
 /* USER IMPUT SECTION */
 
@@ -47,7 +44,6 @@ main {
   display: flex;
 
   height: 40px;
-  width: 20rem;
   background-color: white;
   box-shadow: 0px 0px 9px 4px rgba(182, 182, 182, 0.4);
 
@@ -58,7 +54,7 @@ main {
 .user-input-wrapper input {
   border: none;
   padding-left: 15px;
-  width: 15rem;
+  width: 85%;
 }
 
 .user-input-section select {
@@ -121,6 +117,7 @@ main {
 }
 
 /* DETAILS TAB */
+
 .details-of-country-wrapper {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -128,14 +125,11 @@ main {
 }
 
 .details-of-country-wrapper img {
-  /* object-fit: cover;
-  max-width: 100%;
-  max-height: 300px;
-  height: 350px; */
 
   object-fit: cover;
   width: 100%;
   max-height: 350px;
+  height: 350px;
 }
 
 /* BACK BUTTON ON DETAILS TAB */
@@ -154,6 +148,59 @@ main {
   border-radius: 5px;
   border: none;
 }
+
+/* MORE DETAILS  */
+
+.more-details-wrapper{
+  padding-left: 1rem;
+}
+
+.more-details{
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+}
+
+.more-details label {
+  color: rgb(83, 83, 83);
+}
+
+
+.more-details ul{
+  list-style: none;
+  padding: 0;
+
+}
+
+/* BORDER COUNTRIES */
+.border-wrapper{
+  padding: 0;
+}
+
+.border-wrapper h3 {
+  float: left;
+  margin: 0;
+  margin-top: 7px;
+}
+
+.border-wrapper button {
+  margin: 3px 5px;
+  width: auto;
+  min-width: 100px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+@media screen and (max-width:700px) {
+
+}
+
+
+
+
 
 /* 
 - Very Dark Blue (Light Mode Text): hsl(200, 15%, 8%)
