@@ -4,6 +4,8 @@ const detailsOfCountrySectionElement = document.getElementById(
   'details-of-country'
 );
 
+const userInputSectionELement = document.getElementById('user-input');
+
 const filterByUserInputElement = document.getElementById('search');
 const filterByContinentElement = document.getElementById('filter');
 
@@ -54,9 +56,7 @@ const createTabFromTemplate = (country) => {
   //changing details
 
   const ulTab = template.querySelector('ul');
-  ulTab.querySelector(
-    '#population'
-  ).textContent = ` ${country.population}`;
+  ulTab.querySelector('#population').textContent = ` ${country.population}`;
   ulTab.querySelector('#region').textContent = ` ${country.region}`;
   ulTab.querySelector('#capital').textContent = ` ${country.capital}`;
 
@@ -69,14 +69,24 @@ const createTabFromTemplate = (country) => {
   });
 };
 
+const toggleBackElementOnBackGroudDisplay = () => {
+  cardSectionElement.classList.toggle('hidden');
+  userInputSectionELement.classList.toggle('hidden');
+  detailsOfCountrySectionElement.classList.toggle('hidden');
+  detailsOfCountrySectionElement.innerHTML=' '
+};
+
 const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
   if (detailsOfCountrySectionElement.children.length > 0 && !needsToUpdate) {
     return;
   } else {
-
+    if (!needsToUpdate) {
+      toggleBackElementOnBackGroudDisplay();
+    }
     detailsOfCountrySectionElement.removeChild(
       detailsOfCountrySectionElement.lastChild
     );
+
     const divWrapperElement = document.createElement('div');
 
     //Some elements inside of county are array so map is needed
@@ -92,7 +102,7 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     divWrapperElement.innerHTML = `
     <div class="back-button-wrapper">
     </div>
-    <div>
+    <div class="details-of-country-wrapper">
       <img src="${country.flag}" alt="Flag of ${country.name.split('(')[0]}">
       <div class="more-details-wrapper">
         <h4>${country.name.split('(')[0]}</h4>
@@ -121,21 +131,22 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
       </div>
     </div>
     `;
-    //BACK BUTTON 
+    //BACK BUTTON
 
     let buttonElement = document.createElement('button');
 
-    buttonElement.innerHTML = `<i class="fas fa-arrow-left"></i>Back`
+    buttonElement.innerHTML = `<i class="fas fa-arrow-left"></i>Back`;
+    buttonElement.className = 'button';
 
-
-    // we still need the logic on the event 
-    buttonElement.addEventListener('click',()=> {
+    // we still need the logic on the event
+    buttonElement.addEventListener('click', () => {
       console.log('backButton Clicked!!');
-    })
+      toggleBackElementOnBackGroudDisplay();
+    });
 
-    divWrapperElement.getElementsByClassName('back-button-wrapper')[0].appendChild(buttonElement)
-
-
+    divWrapperElement
+      .getElementsByClassName('back-button-wrapper')[0]
+      .appendChild(buttonElement);
 
     // BORDER COUNTRY BUTTONS
 
@@ -146,16 +157,16 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
       liElement.textContent = ` ${countryBorderInfo.name.split('(')[0]} `;
 
       liElement.addEventListener('click', () => {
-        showDetailsOfCountrySectionHandler(countryBorderInfo,true);
-        console.log('clicked the border link ' + countryBorderInfo.name.split('(')[0]);
+        showDetailsOfCountrySectionHandler(countryBorderInfo, true);
+        console.log(
+          'clicked the border link ' + countryBorderInfo.name.split('(')[0]
+        );
       });
 
       divWrapperElement
         .getElementsByClassName('border-wrapper')[0]
         .appendChild(liElement);
     });
-
-
 
     detailsOfCountrySectionElement.appendChild(divWrapperElement);
   }
