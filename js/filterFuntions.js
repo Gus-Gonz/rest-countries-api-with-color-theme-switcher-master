@@ -1,10 +1,12 @@
 const filterByUserInputElement = document.getElementById('search');
 const filterByContinentElement = document.getElementById('filter');
 
+let activeContinentFilter;
+
 const borderFilter = (alpha3CodeValue) => {
   for (let i = 0; i < fullListOfCountries.length; i++) {
     if (fullListOfCountries[i].alpha3Code === alpha3CodeValue) {
-      return fullListOfCountries[i];
+      return { info: fullListOfCountries[i], index: i };
     }
   }
 };
@@ -15,12 +17,17 @@ const resetFilter = () => {
   }
 };
 
-const inputFilter = (inputValue) => {
+const inputFilter = (inputValue, continentFilter) => {
   for (let i = 0; i < fullListOfCountries.length; i++) {
     if (
-      fullListOfCountries[i].name
+      (fullListOfCountries[i].name
         .toLowerCase()
-        .includes(inputValue.toLowerCase())
+        .includes(inputValue.toLowerCase()) &&
+        fullListOfCountries[i].region === continentFilter) ||
+      (fullListOfCountries[i].name
+        .toLowerCase()
+        .includes(inputValue.toLowerCase()) &&
+        !continentFilter)
     ) {
       cardSectionElement.children[i].style.display = '';
     } else {
@@ -39,37 +46,25 @@ const regionFilter = (regionValue) => {
   }
 };
 
-const filterByUserInputHandler = (value) => {
-  return value !== '' ? inputFilter(value) : resetFilter();
+const filterByUserInputHandler = (value, activeContinentFilter) => {
+  return value !== '' ? inputFilter(value, activeContinentFilter) : null;
 };
 
-const filterByContinentHandler = (value = false) => {
+const filterByContinentHandler = (value) => {
+  filterByUserInputElement.value = '';
   return value ? regionFilter(value) : resetFilter();
 };
 
 filterByUserInputElement.addEventListener('keyup', (event) => {
-  filterByUserInputHandler(event.target.value.toLowerCase());
+  filterByUserInputHandler(
+    event.target.value.toLowerCase(),
+    activeContinentFilter
+  );
 });
 
 filterByContinentElement.addEventListener('change', (event) => {
-  switch (event.target.value) {
-    case 'ALL':
-      filterByContinentHandler();
-      break;
-    case 'AF':
-      filterByContinentHandler('Africa');
-      break;
-    case 'AM':
-      filterByContinentHandler('Americas');
-      break;
-    case 'AS':
-      filterByContinentHandler('Asia');
-      break;
-    case 'EU':
-      filterByContinentHandler('Europe');
-      break;
-    case 'OC':
-      filterByContinentHandler('Oceania');
-      break;
-  }
+  activeContinentFilter =
+    event.target.value !== '' ? event.target.value : undefined;
+
+  filterByContinentHandler(activeContinentFilter);
 });

@@ -22,7 +22,7 @@ header {
   grid-template-columns: 50% 44%;
 }
 
-.dark-button p{
+.dark-button p {
   float: right;
   margin: 0;
   padding-top: 1.5rem;
@@ -94,7 +94,7 @@ main {
 
 .card {
   display: inline-block;
-  height: 300px;
+  height: 315px;
   background: white;
   margin: 10px 13px;
 
@@ -116,10 +116,12 @@ main {
 
 .info-wrapper {
   text-align: justify;
-  padding: 0 10px 0 30px;
+  padding: 0 10px 0 20px;
 }
 
 .info-wrapper h4 {
+  display: contents;
+  width: 225px;
   margin-top: 5px;
 }
 
@@ -210,11 +212,9 @@ main {
 }
 
 @media screen and (max-width: 780px) {
-
-  main{
+  main {
     padding: 0 1.5rem;
     padding-top: 120px;
-
   }
 
   header {
@@ -222,42 +222,42 @@ main {
     grid-template-columns: 50% 42%;
   }
 
-  h2{
+  h2 {
     font-size: 16px;
   }
 
-  .dark-button{
+  .dark-button {
     float: right;
   }
 
-  .dark-button p{
+  .dark-button p {
     padding-right: 1rem;
     padding-top: 1rem;
   }
 
   /* USER IMPUT SECTION */
-  .user-input-section{
+  .user-input-section {
     grid-template-columns: none;
     grid-template-rows: 50px 50px;
     grid-gap: 10px;
     padding: 0;
   }
 
-  .user-input-section select{
+  .user-input-section select {
     margin: 0;
   }
 
   /* DETAILS TAB */
 
-  .details-of-country-wrapper{
-    grid-template-columns:none;
+  .details-of-country-wrapper {
+    grid-template-columns: none;
   }
 
-  .details-of-country-wrapper img{
+  .details-of-country-wrapper img {
     height: 250px;
   }
 
-  .more-details-wrapper{
+  .more-details-wrapper {
     padding: 0;
   }
 
@@ -266,8 +266,8 @@ main {
     margin: 1rem 0;
   }
 
-  .more-details{
-    grid-template-columns:none;
+  .more-details {
+    grid-template-columns: none;
   }
 
   .more-details li {
@@ -278,9 +278,6 @@ main {
     min-width: 80px;
     margin: 7px 5px;
   }
-
-
-
 }
 
 /* 

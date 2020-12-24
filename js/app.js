@@ -32,22 +32,33 @@ const createTabFromTemplate = (country) => {
   //pushing the template updated into the DOM
   cardSectionElement.appendChild(template);
 
-  cardSectionElement.lastElementChild.addEventListener('click', () => {
-    showDetailsOfCountrySectionHandler(country);
+  let thisTab = cardSectionElement.lastElementChild
+
+  thisTab.addEventListener('click', () => {
+    showDetailsOfCountrySectionHandler(country, thisTab);
   });
-
-
-
 };
 
-const toggleElementOnBackGroud = () => {
+const toggleElementOnBackGroud = (tabToReturnView = false) => {
   cardSectionElement.classList.toggle('hidden');
   userInputSectionELement.classList.toggle('hidden');
   detailsOfCountrySectionElement.classList.toggle('hidden');
   detailsOfCountrySectionElement.innerHTML = ' ';
+
+  if (tabToReturnView) {
+    filterByContinentHandler(activeContinentFilter)
+    filterByUserInputElement.value = '';
+
+    tabToReturnView.scrollIntoView({block: "end"})
+    window.scrollBy({top:200,left: 0});
+  }
 };
 
-const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
+const showDetailsOfCountrySectionHandler = (
+  country,
+  thisTab,
+  needsToUpdate = false
+) => {
   if (detailsOfCountrySectionElement.children.length > 0 && !needsToUpdate) {
     return;
   } else {
@@ -112,10 +123,8 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
     buttonElement.innerHTML = `<i class="fas fa-arrow-left"></i>Back`;
     buttonElement.className = 'button';
 
-    // we still need the logic on the event
     buttonElement.addEventListener('click', () => {
-      console.log('backButton Clicked!!');
-      toggleElementOnBackGroud();
+      toggleElementOnBackGroud(thisTab);
     });
 
     divWrapperElement
@@ -130,12 +139,15 @@ const showDetailsOfCountrySectionHandler = (country, needsToUpdate = false) => {
 
       buttonElement.className = 'button';
 
-      buttonElement.textContent = ` ${countryBorderInfo.name.split('(')[0]} `;
+      buttonElement.textContent = ` ${
+        countryBorderInfo.info.name.split('(')[0]
+      } `;
 
       buttonElement.addEventListener('click', () => {
-        showDetailsOfCountrySectionHandler(countryBorderInfo, true);
-        console.log(
-          'clicked the border link ' + countryBorderInfo.name.split('(')[0]
+        showDetailsOfCountrySectionHandler(
+          countryBorderInfo.info,
+          cardSectionElement.children[countryBorderInfo.index],
+          true
         );
       });
 
@@ -162,8 +174,6 @@ const sendHttpRequest = (method, url, data) => {
       } else {
         reject(new Error('Something went wrong!'));
       }
-
-      //   const listOfPosts = JSON.parse(xhr.response);
     };
 
     xhr.onerror = function () {
@@ -180,6 +190,7 @@ sendHttpRequest('GET', 'https://restcountries.eu/rest/v2/all')
   .then(
     (countries) => {
       fullListOfCountries = countries;
+      console.log(countries);
       return fullListOfCountries;
     },
     (error) => console.log(error)
